@@ -1,6 +1,8 @@
 name: .NET Core
 
 on: [push]
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
 
 jobs:
   build:
@@ -13,5 +15,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '5.0.100'
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
+    # Run dotnet build and publish
+    - name: dotnet build and publish
+      run: |
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+    
