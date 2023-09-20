@@ -12,9 +12,11 @@ jobs:
         id: step1
         run: |
           if [ ${{ github.ref }} != 'refs/heads/main' ]; then
-            echo "::set-output name=runner::ubuntu-latest"
+            # echo "::set-output name=runner::ubuntu-latest"
+            echo "name=ubuntu-latest" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=runner::windows-lates"
+            # echo "::set-output name=runner::windows-latest"
+            echo "name=windows-latest" >> $GITHUB_OUTPUT
           fi
 
   job1:
