@@ -14,7 +14,7 @@ jobs:
           if [ ${{ github.ref }} != 'refs/heads/main' ]; then
             echo "::set-output name=runner::ubuntu-latest"
           else
-            echo "::set-output name=runner::windows-latest"
+            echo "::set-output name=runner::windows-lates"
           fi
 
   job1:
