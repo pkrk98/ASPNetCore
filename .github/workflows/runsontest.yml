@@ -1,0 +1,24 @@
+name: This test is for diffent runs-on
+on:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      runner: ${{ steps.step1.outputs.runner }}
+    steps:
+      - name: Check branch
+        id: step1
+        run: |
+          if [ ${{ github.ref }} == 'refs/heads/main' ]; then
+            echo "::set-output name=runner::ubuntu-latest"
+          else
+            echo "::set-output name=runner::macos-latest"
+          fi
+
+  job1:
+    needs: [setup]
+    runs-on: ${{ needs.setup.outputs.runner }}
+    steps:
+      - run: echo "My runner is ${{ needs.setup.outputs.runner }}"
